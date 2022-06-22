@@ -1,0 +1,9 @@
+html, body, canvas {
+    overflow: hidden;
+    margin: 0;
+    image-rendering: -moz-crisp-edges !important;
+    image-rendering: -webkit-crisp-edges !important;
+    image-rendering: pixelated !important;
+    image-rendering: crisp-edges !important;
+    /*cursor: url("./resources/cursor.png"), auto;*/
+  }

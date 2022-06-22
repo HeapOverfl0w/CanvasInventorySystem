@@ -1,0 +1,57 @@
+<html>
+    <head>
+        <link rel="stylesheet" href="./style.css">
+    </head>
+    <body>
+        <canvas id='scene'></canvas>
+    </body>
+    <div style="display:none">
+        <img id="itemIcons" src="./itemIcons.png" />
+        <img id="menuItems" src="./menuItems.png" />
+    </div>
+    <script src='vector2d.js'></script>
+    <script src='button.js'></script>
+    <script src='consts.js'></script>
+    <script src='inventory.js'></script>
+    <script src='model.js'></script>
+    <script>
+        var cvs = document.getElementById("scene");
+        var ctx = cvs.getContext("2d");
+
+        var slots = [
+                new Slot('Head', 'helmet'),
+                new Slot('Hand', 'sword'),
+                new Slot('Hand2', 'sword')
+            ];
+            var items = [
+                new Item('Sword', 'sword', new Vector2D(16,0)),
+                new Item('Sword', 'sword2', new Vector2D(16,0)),
+                new Item('Helmet', 'helmet', new Vector2D(32,0))
+            ]
+
+            var inventory = new Inventory(slots, items, new Vector2D(16, 16), new Vector2D(0, 0), 10);
+
+        window.onload = function() {
+            cvs.width = 500;
+            cvs.height = 400;
+            cvs.style.width = "500px";
+            cvs.style.height = "400px";
+            
+            window.setInterval((inventory) => {
+                inventory.draw(ctx);
+            }, 1000/30, inventory);
+        }
+
+        cvs.addEventListener('mousemove', function(event){
+            inventory.onMouseMove(new Vector2D(event.clientX / cvs.clientWidth * cvs.width, event.clientY / cvs.clientHeight * cvs.height));
+        });
+
+        cvs.addEventListener('mousedown', function(event){
+            inventory.onMouseDown(new Vector2D(event.clientX / cvs.clientWidth * cvs.width, event.clientY / cvs.clientHeight * cvs.height));
+        });
+
+        cvs.addEventListener('mouseup', function(event){
+            inventory.onMouseUp(new Vector2D(event.clientX / cvs.clientWidth * cvs.width, event.clientY / cvs.clientHeight * cvs.height));
+        });
+    </script>
+</html>
